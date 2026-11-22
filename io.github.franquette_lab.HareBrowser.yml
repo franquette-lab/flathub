@@ -1,9 +1,9 @@
 app-id: io.github.franquette_lab.HareBrowser
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
 base: org.electronjs.Electron2.BaseApp
-base-version: '24.08'
+base-version: '25.08'
 command: hare-browser
 
 finish-args:
@@ -28,15 +28,16 @@ modules:
       - install -Dm644 io.github.franquette_lab.HareBrowser.desktop /app/share/applications/io.github.franquette_lab.HareBrowser.desktop
       - install -Dm644 usr/share/icons/hicolor/512x512/apps/*.png /app/share/icons/hicolor/512x512/apps/io.github.franquette_lab.HareBrowser.png
       - |
-        cat << 'EOF' > /app/bin/hare-browser
+        cat << 'INNER' > /app/bin/hare-browser
         #!/bin/bash
         export TMPDIR="$XDG_RUNTIME_DIR/app/${FLATPAK_ID}"
         exec zypak-wrapper /app/main/hare-browser "$@"
-        EOF
+        INNER
       - chmod +x /app/bin/hare-browser
     sources:
       - type: file
         url: https://github.com
+        dest-filename: Hare-Browser-1.0.2-amd64.deb
         sha256: 528a98cd3cc3c3113d6e28a721f9647d546e4477f8be085acc84220966b91d88
       - type: file
         path: io.github.franquette_lab.HareBrowser.metainfo.xml
